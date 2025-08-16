@@ -58,6 +58,8 @@
             padding: 15px;
             text-align: center;
             transition: transform 0.2s, box-shadow 0.2s;
+            display: flex; /* Flexboxを使用して高さを揃える */
+            flex-direction: column; /* 子要素を縦に並べる */
         }
         
         .nazo-item:hover {
@@ -65,13 +67,29 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* 謎の画像 */
-        .nazo-item img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
+        /* ▼▼▼【追加】画像コンテナのスタイル ▼▼▼ */
+        .nazo-item .img-container {
+            width: 100%;
+            padding-top: 100%; /* 高さを幅と同じにする（正方形にする） */
+            position: relative;
             border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden; /* はみ出した画像を隠す */
+            margin-bottom: 10px;
         }
+        /* ▲▲▲【追加】画像コンテナのスタイル ▲▲▲ */
+
+        /* ▼▼▼【変更】謎の画像のスタイル ▼▼▼ */
+        .nazo-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 画像の比率を保ったままトリミング */
+        }
+        /* ▲▲▲【変更】謎の画像のスタイル ▲▲▲ */
+
 
         /* 謎のタイトル */
         .nazo-item h3 {
@@ -83,15 +101,29 @@
         .nazo-item p {
             font-size: 0.9em;
             text-align: left;
-            margin: 0;
+            margin: 0 0 10px 0; /* 下に余白を追加 */
             line-height: 1.6;
         }
+
+        /* ▼▼▼【追加】評価のスタイル ▼▼▼ */
+        .nazo-item .ratings {
+            font-size: 0.9em;
+            text-align: left;
+            margin-top: auto; /* カード下部に配置 */
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .ratings span {
+            color: #f39c12; /* 星の色 */
+        }
+        /* ▲▲▲【追加】評価のスタイル ▲▲▲ */
+
         
         /* リンクのスタイル */
         a {
             text-decoration: none;
             color: inherit; /* 親要素の色を継承 */
-            display: block;
         }
 
         /* --- レスポンシブ対応 --- */
@@ -99,7 +131,6 @@
         /* スマホ向け (画面幅が767px以下の場合) */
         @media (max-width: 767px) {
             .nazo-container {
-                /* 2列で表示 */
                 grid-template-columns: repeat(2, 1fr);
             }
         }
@@ -107,19 +138,10 @@
         /* PC向け (画面幅が768px以上の場合) */
         @media (min-width: 768px) {
             .nazo-container {
-                /* 3列で表示 */
                 grid-template-columns: repeat(3, 1fr);
             }
         }
         
-        /* PC向け大画面 (画面幅が1024px以上の場合) */
-        @media (min-width: 1024px) {
-            .nazo-container {
-                /* 4列で表示することも可能 (謎の数が増えたらこちらを有効にしてください) */
-                /* grid-template-columns: repeat(4, 1fr); */
-            }
-        }
-
     </style>
 </head>
 <body>
@@ -138,21 +160,32 @@
             <div class="nazo-container">
                 <div class="nazo-item">
                     <a href="https://maruten0420.github.io/maruten-blog/" target="_blank" rel="noopener noreferrer">
-                        <img src="./images/webnazo.png" alt="あるWebサイトの謎">
+                        <div class="img-container">
+                           <img src="./images/webnazo.png" alt="あるWebサイトの謎">
+                        </div>
                         <h3>あるWebサイトの謎</h3>
                     </a>
                     <p>平成感あふれる(?)サイトに隠されたたくさんの謎を解き明かせ！</p>
+                    <div class="ratings">
+                        難易度　　：<span>★★★★☆</span><br>
+                        知識要求度：<span>★★★★★</span>
+                    </div>
                 </div>
 
                 <div class="nazo-item">
                     <a href="https://x.com/HappaMed20" target="_blank" rel="noopener noreferrer">
-                        <img src="./images/happa.png" alt="はっぱめど">
+                        <div class="img-container">
+                            <img src="./images/happa.png" alt="はっぱめど">
+                        </div>
                         <h3>はっぱめど</h3>
                     </a>
                     <p>[謎協力: うりよしきばさん]<br>"はっぱ"にまつわる曲を集めてメドレーにしました。</p>
+                    <div class="ratings">
+                        難易度　　：<span>★★★☆☆</span><br>
+                        知識要求度：<span>★★★★☆</span>
+                    </div>
                 </div>
-
-                </div>
+            </div>
         </section>
 
 
@@ -161,29 +194,47 @@
             <div class="nazo-container">
                 <div class="nazo-item">
                     <a href="https://lin.ee/auxvVTD" target="_blank" rel="noopener noreferrer">
-                        <img src="./images/uten.png" alt="○雨天の塔">
+                        <div class="img-container">
+                            <img src="./images/uten.png" alt="○雨天の塔">
+                        </div>
                         <h3>○雨天の塔</h3>
                     </a>
                     <p>LINE謎初挑戦作品、是非塔の頂上まで登ってみてください。</p>
+                    <div class="ratings">
+                        難易度　　：<span>★★☆☆☆</span><br>
+                        知識要求度：<span>★☆☆☆☆</span>
+                    </div>
                 </div>
 
                 <div class="nazo-item">
                     <a href="https://lin.ee/bezJrDj" target="_blank" rel="noopener noreferrer">
-                        <img src="./images/onigiri.png" alt="おにぎり早食い王決定戦">
+                        <div class="img-container">
+                            <img src="./images/onigiri.png" alt="おにぎり早食い王決定戦">
+                        </div>
                         <h3>おにぎり早食い王決定戦</h3>
                     </a>
                     <p>矢継ぎ早に出題されるおにぎりの謎をさばいて、30個のおにぎりを食べつくそう。みんなでタイムアタックすると楽しいかも？</p>
+                    <div class="ratings">
+                        難易度　　：<span>★★★☆☆</span><br>
+                        知識要求度：<span>★☆☆☆☆</span>
+                    </div>
                 </div>
 
                 <div class="nazo-item">
                     <a href="https://lin.ee/OQBrBZo" target="_blank" rel="noopener noreferrer">
-                        <img src="./images/fifty.png" alt="簡単五十音表謎">
+                        <div class="img-container">
+                            <img src="./images/fifty.png" alt="簡単五十音表謎">
+                        </div>
                         <h3>簡単五十音表謎</h3>
                     </a>
                     <p>シンプルな五十音表のはずなのに、何かがおかしい？ヘンテコな謎を解きあかそう</p>
+                    <div class="ratings">
+                        難易度　　：<span>★★★★☆</span><br>
+                        知識要求度：<span>★★☆☆☆</span>
+                    </div>
                 </div>
 
-                </div>
+            </div>
         </section>
 
     </div>
@@ -191,5 +242,3 @@
 </body>
 
 </html>
-
-
